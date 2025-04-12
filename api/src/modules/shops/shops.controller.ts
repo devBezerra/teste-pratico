@@ -27,8 +27,8 @@ export class ShopsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.shopsService.findOne(+id);
+  async findOne(@Param('id') id: number): Promise<ShopInterface> {
+    return await this.shopsService.findOne(+id);
   }
 
   @Patch(':id')

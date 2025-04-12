@@ -28,8 +28,15 @@ export class ShopsService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} shop`;
+  async findOne(id: number): Promise<ShopInterface> {
+    try {
+      return await this.shopsRepository.findOneOrFail({ where: { id } });
+    } catch {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar a loja.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   update(id: number, updateShopDto: UpdateShopDto) {
