@@ -1,0 +1,13 @@
+version: '3.8'
+
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: teste-pratico-api-db
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
