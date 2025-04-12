@@ -1,10 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntityWithIdAndTimestamps } from 'src/shared/entities/baseEntityWithIdAndTimestamps.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'shops' })
-export class Shop {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Shop extends BaseEntityWithIdAndTimestamps {
   @Column()
   description: string;
 }

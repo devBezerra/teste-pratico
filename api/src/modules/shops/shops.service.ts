@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { ShopInterface } from './interfaces/shop.interface';
-import { Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { Shop } from './entities/shop.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -13,8 +13,20 @@ export class ShopsService {
     private readonly shopsRepository: Repository<Shop>,
   ) { }
 
-  create(createShopDto: CreateShopDto) {
-    return 'This action adds a new shop';
+  async create(
+    createShopDto: CreateShopDto,
+  ): Promise<{ shop: ShopInterface; message: string }> {
+    try {
+      const entity = Object.assign(new Shop(), createShopDto);
+      const shop = await this.shopsRepository.save(entity);
+
+      return { shop, message: 'A loja foi criada com sucesso.' };
+    } catch {
+      throw new HttpException(
+        { message: 'Não foi possível criar a loja.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async findAll(): Promise<ShopInterface[]> {
@@ -34,16 +46,58 @@ export class ShopsService {
     } catch {
       throw new HttpException(
         { message: 'Não foi possível encontrar a loja.' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
+  async findByDescription(description: string, shop: ShopInterface) {
+    try {
+      const id: number = shop.id || 0;
+
+      return await this.shopsRepository.findOne({
+        where: {
+          description,
+          id: Not(id),
+          deletedAt: IsNull(),
+        },
+        select: ['description'],
+      });
+    } catch {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar a loja.' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
+  async update(
+    id: number,
+    updateShopDto: UpdateShopDto,
+  ): Promise<{ shop: ShopInterface; message: string }> {
+    try {
+      const entity = Object.assign(new Shop(), { ...updateShopDto, id });
+      await this.shopsRepository.save(entity);
+
+      const shop = await this.shopsRepository.findOneOrFail({ where: { id } });
+      return { shop, message: 'A loja foi atualizada com sucesso.' };
+    } catch {
+      throw new HttpException(
+        { message: 'Não foi possível atualizar a loja.' },
         HttpStatus.BAD_REQUEST,
       );
     }
   }
 
-  update(id: number, updateShopDto: UpdateShopDto) {
-    return `This action updates a #${id} shop`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} shop`;
+  async remove(id: number): Promise<{ message: string }> {
+    try {
+      await this.shopsRepository.softDelete(id);
+      return { message: 'A loja foi removida com sucesso.' };
+    } catch {
+      throw new HttpException(
+        { message: 'Não foi possível excluir a loja.' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 }
