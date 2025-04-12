@@ -22,7 +22,7 @@
     "migration:create": "npm run typeorm -- migration:create ./src/db/migrations/$npm_config_name",
     "migration:run": "npm run typeorm migration:run -- -d ./src/db/data-source.ts",
     "migration:revert": "npm run typeorm migration:revert -- -d ./src/db/data-source.ts",
-    "seed:run": "npx typeorm-extension seed:run -d ./src/db/data-source.ts"
+    "seed:run": "nest build && npx typeorm-extension seed:run -d ./dist/src/db/data-source.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
