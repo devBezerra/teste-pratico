@@ -1,0 +1,8 @@
+<section>
+  <div class="buttons">
+    @if(url()) {
+    <p-button icon="pi pi-plus" [rounded]="true" [outlined]="true" [routerLink]="url()" severity="contrast" />
+    }
+  </div>
+  <h3>{{text()}}</h3>
+</section>

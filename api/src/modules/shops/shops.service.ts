@@ -40,6 +40,30 @@ export class ShopsService {
     }
   }
 
+  async findWithPaginate(page = 1, limit = 10) {
+    try {
+      const [data, total] = await this.shopsRepository.findAndCount({
+        skip: (page - 1) * limit,
+        take: limit,
+        order: { id: 'DESC' },
+      });
+
+      const totalPages = Math.ceil(total / limit);
+
+      return {
+        content: data,
+        totalItems: total,
+        totalPages,
+        currentPage: page,
+      };
+    } catch {
+      throw new HttpException(
+        { message: 'Não foi possível encontrar as lojas.' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
   async findOne(id: number): Promise<ShopInterface> {
     try {
       return await this.shopsRepository.findOneOrFail({ where: { id } });

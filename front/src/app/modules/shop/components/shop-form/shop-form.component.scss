@@ -1,0 +1,15 @@
+.description {
+  display: flex;
+  flex-direction: column;
+}
+
+.description input {
+  margin: 0.5rem 0;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { ShopsService } from './shops.service';
 import { CreateShopDto } from './dto/create-shop.dto';
@@ -28,6 +29,14 @@ export class ShopsController {
   @Get()
   async findAll(): Promise<ShopInterface[]> {
     return await this.shopsService.findAll();
+  }
+
+  @Get('paginate')
+  async findWithPaginate(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<any> {
+    return await this.shopsService.findWithPaginate(+page, +limit);
   }
 
   @Get(':id')

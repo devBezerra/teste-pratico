@@ -1,0 +1,13 @@
+<p-dialog [visible]="visible()" [modal]="true" [header]="id() ? 'Editar Loja' : 'Cadastrar Loja' "
+  [style]="{width: '30vw'}" closable=false>
+  <form [formGroup]="form">
+    <div class="description">
+      <label for="description">Descrição:</label>
+      <input pInputText id="description" autocomplete="off" formControlName="description" />
+    </div>
+    <div class="action-buttons">
+      <p-button label="Salvar" (click)="handleSaveOrUpdate()" [outlined]=true [disabled]="form.invalid" />
+      <p-button label="Cancelar" (click)="close()" severity=danger [outlined]=true />
+    </div>
+  </form>
+</p-dialog>

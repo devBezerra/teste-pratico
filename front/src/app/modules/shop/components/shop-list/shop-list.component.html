@@ -1,0 +1,25 @@
+<tp-header text="Lista de Lojas"></tp-header>
+<p-confirmdialog />
+<p-table [value]="shops" [lazy]="true" [loading]="loading()" [paginator]="true" (onPage)="onPageChange($event)"
+  [totalRecords]="totalShops" [rows]="10" [first]=first>
+  <ng-template pTemplate="header">
+    <p-button icon="pi pi-plus" [rounded]="true" [outlined]="true" severity="contrast" (click)="showDialog.set(true)" />
+    <tr>
+      <th>Código</th>
+      <th>Descrição</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-shop>
+    <tr>
+      <td>{{shop.id}}</td>
+      <td>{{shop.description}}</td>
+      <td class="action-buttons">
+        <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" severity="contrast" (click)="openEditDialog(shop.id)" />
+        <p-button icon="pi pi-trash" [rounded]="true" [outlined]="true" severity="danger" (click)="deleteShop(shop.id)" />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<tp-shop-form [visible]="showDialog()" (closed)="closeDialog($event)" [id]="selectedShopId()"/>
