@@ -8,7 +8,7 @@ export class ShopIdExistPipe implements PipeTransform<any> {
   constructor(
     @InjectRepository(Shop)
     private readonly shopsRepository: Repository<Shop>,
-  ) { }
+  ) {}
 
   async transform(id: number): Promise<number> {
     const shop = await this.shopsRepository.findOne({ where: { id } });

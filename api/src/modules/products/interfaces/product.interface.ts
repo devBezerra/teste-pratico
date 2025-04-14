@@ -1,10 +1,11 @@
 import { BaseInterfaceWithIdAndTimeStamps } from 'src/shared/interfaces/baseInterfaceWithIdAndTimestamps.interface';
 import { BaseReturnPaginatedRoute } from 'src/shared/interfaces/baseReturnPaginatedRoute.interface';
 
-export interface ShopInterface extends BaseInterfaceWithIdAndTimeStamps {
+export interface ProductInterface extends BaseInterfaceWithIdAndTimeStamps {
   description: string;
+  cost: number;
 }
 
-export interface PaginatedRouteShopReturn extends BaseReturnPaginatedRoute {
-  content: ShopInterface[];
+export interface PaginatedRouteProductReturn extends BaseReturnPaginatedRoute {
+  content: ProductInterface[];
 }

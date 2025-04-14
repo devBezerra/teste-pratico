@@ -1,7 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
-import { ShopInterface } from './interfaces/shop.interface';
+import {
+  PaginatedRouteShopReturn,
+  ShopInterface,
+} from './interfaces/shop.interface';
 import { IsNull, Not, Repository } from 'typeorm';
 import { Shop } from './entities/shop.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,7 +14,7 @@ export class ShopsService {
   constructor(
     @InjectRepository(Shop)
     private readonly shopsRepository: Repository<Shop>,
-  ) { }
+  ) {}
 
   async create(
     createShopDto: CreateShopDto,
@@ -40,7 +43,10 @@ export class ShopsService {
     }
   }
 
-  async findWithPaginate(page = 1, limit = 10) {
+  async findWithPaginate(
+    page = 1,
+    limit = 10,
+  ): Promise<PaginatedRouteShopReturn> {
     try {
       const [data, total] = await this.shopsRepository.findAndCount({
         skip: (page - 1) * limit,
@@ -75,7 +81,10 @@ export class ShopsService {
     }
   }
 
-  async findByDescription(description: string, shop: ShopInterface) {
+  async findByDescription(
+    description: string,
+    shop: ShopInterface,
+  ): Promise<ShopInterface | null> {
     try {
       const id: number = shop.id || 0;
 
