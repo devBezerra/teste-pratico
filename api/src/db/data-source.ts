@@ -5,6 +5,7 @@ import { Shop } from 'src/modules/shops/entities/shop.entity';
 import { config } from 'dotenv';
 import { ConfigService } from '@nestjs/config';
 import { Product } from 'src/modules/products/entities/product.entity';
+import { ProductShop } from 'src/modules/products/entities/product-shop.entity';
 
 config();
 
@@ -20,7 +21,7 @@ export const typeormOptions: DataSourceOptions & SeederOptions = {
   migrations: [__dirname + '/migrations/*.ts'],
   synchronize: false,
   logging: false,
-  entities: [Shop, Product],
+  entities: [Shop, Product, ProductShop],
   seeds: [MainSeeder],
 };
 
