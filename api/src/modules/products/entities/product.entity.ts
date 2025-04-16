@@ -10,7 +10,7 @@ export class Product extends BaseEntityWithIdAndTimestamps {
   @Column('decimal', { precision: 10, scale: 2 })
   cost: number;
 
-  @OneToMany(() => ProductShop, (productShop) => productShop.shop, {
+  @OneToMany(() => ProductShop, (productShop) => productShop.product, {
     cascade: true,
   })
   productsShop?: ProductShop[];

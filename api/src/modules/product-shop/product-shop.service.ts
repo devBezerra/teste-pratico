@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { ProductShop } from './entities/product-shop.entity';
 import { CreateProductShopDto } from './dto/create-product-shop.dto';
 import { ProductShopInterface } from './interfaces/product-shop.interface';
@@ -15,7 +15,7 @@ export class ProductShopService {
 
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-  ) {}
+  ) { }
 
   async create(
     createProductShopDto: CreateProductShopDto,
@@ -91,10 +91,13 @@ export class ProductShopService {
   async checkDuplicated(
     shopId: number,
     productId: number,
+    productShopId?: number,
   ): Promise<ProductShopInterface | null> {
     try {
+      const id: number = productShopId || 0;
       return await this.productShopRepository.findOne({
         where: {
+          id: Not(id),
           shopId,
           productId,
           deletedAt: IsNull(),
@@ -116,6 +119,7 @@ export class ProductShopService {
       const duplicate = await this.checkDuplicated(
         updateProductShopDto.shopId!,
         updateProductShopDto.productId!,
+        updateProductShopDto.id,
       );
 
       if (duplicate) {
