@@ -14,7 +14,7 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-  ) {}
+  ) { }
 
   async create(
     createProductDto: CreateProductDto,
@@ -72,8 +72,12 @@ export class ProductsService {
 
   async findOne(id: number): Promise<ProductInterface> {
     try {
-      return await this.productRepository.findOneOrFail({ where: { id } });
-    } catch {
+      return await this.productRepository.findOneOrFail({
+        where: { id },
+        relations: ['productsShop', 'productsShop.shop'],
+      });
+    } catch (error) {
+      console.log(error);
       throw new HttpException(
         { message: 'Não foi possível encontrar o produto.' },
         HttpStatus.NOT_FOUND,

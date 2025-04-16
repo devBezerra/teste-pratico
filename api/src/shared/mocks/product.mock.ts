@@ -19,7 +19,7 @@ export const productsMock: ProductInterface[] = [productMock, productMock2];
 
 export const createProductDtoMock: CreateProductDto = {
   description: 'Produto Mock Teste Criação',
-  cost: 2.5,
+  cost: '2.5',
 };
 
 export const updateProductDtoMock: UpdateProductDto = {

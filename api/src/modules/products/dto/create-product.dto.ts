@@ -27,5 +27,5 @@ export class CreateProductDto {
     { message: 'O campo de custo precisa ser um numero.' },
   )
   @IsNotEmpty({ message: 'O campo de custo é obrigatório.' })
-  cost: number;
+  cost: string;
 }
