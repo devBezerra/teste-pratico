@@ -1,1 +1,26 @@
-<p>product-list works!</p>
+<tp-header createUrl="cadastrar" text="Lista de Produtos" redirectUrl="shops"></tp-header>
+<p-confirmdialog />
+<p-table [value]="products" [lazy]="true" [loading]="loading()" [paginator]="true" (onPage)="onPageChange($event)"
+  [totalRecords]="totalProducts" [rows]="10" [first]=first>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Código</th>
+      <th>Descrição</th>
+      <th>Custo</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{product.id}}</td>
+      <td>{{product.description}}</td>
+      <td>R$ {{product.cost | decimalComma}}</td>
+      <td class="action-buttons">
+        <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" severity="contrast"
+          [routerLink]="'editar/'+ product.id" />
+        <p-button icon="pi pi-trash" [rounded]="true" [outlined]="true" severity="danger"
+          (click)="deleteProduct(product.id)" />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

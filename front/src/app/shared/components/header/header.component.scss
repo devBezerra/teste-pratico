@@ -8,3 +8,13 @@ section .buttons {
   position: absolute;
   left: 10px;
 }
+
+.link-button {
+  position: absolute;
+  right: 10px;
+  background-color: transparent !important;
+}
+
+::ng-deep .link-button {
+  color: #000 !important;
+}

@@ -1,1 +1,46 @@
-<p>product-form works!</p>
+<tp-header
+  [text]="id ? 'Editar Produto' : 'Cadastro de Produto'"
+  returnUrl="/produtos"
+  [action]="boundHandleSaveOrUpdate"
+  [actionDisable]="form.invalid"
+/>
+
+<form [formGroup]="form">
+  <div class="id">
+    <label for="id">Código:</label>
+    <input pInputText id="id" autocomplete="off" formControlName="id" />
+  </div>
+  <div class="description">
+    <label for="description">Descrição:</label>
+    <input pInputText id="description" autocomplete="off" formControlName="description" />
+  </div>
+  <div class="cost">
+    <label for="cost">Custo:</label>
+    <p-inputnumber mode="decimal" formControlName="cost" [minFractionDigits]="2" [maxFractionDigits]="2" />
+  </div>
+</form>
+
+@if(!!id) {
+<p-table [value]="productsShop" [lazy]="true" [loading]="loading()">
+  <ng-template pTemplate="header">
+    <p-button icon="pi pi-plus" [rounded]="true" [outlined]="true" severity="contrast" />
+    <tr>
+      <th>Loja</th>
+      <th>Preço de Venda</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-productShop>
+    <tr>
+      <td>{{productShop.shop.description}}</td>
+      <td>R$ {{productShop.price | decimalComma}}</td>
+      <td class="action-buttons">
+        <!-- <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="contrast" -->
+        <!--   [routerLink]="" /> -->
+        <!-- <p-button icon="pi pi-trash" [rounded]="true" [outlined]="true" severity="danger" -->
+        <!--   (click)="deleteProduct(product.id)" /> -->
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+}

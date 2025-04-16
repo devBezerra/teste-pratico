@@ -1,4 +1,4 @@
-<tp-header text="Lista de Lojas"></tp-header>
+<tp-header text="Lista de Lojas" redirectUrl="products"></tp-header>
 <p-confirmdialog />
 <p-table [value]="shops" [lazy]="true" [loading]="loading()" [paginator]="true" (onPage)="onPageChange($event)"
   [totalRecords]="totalShops" [rows]="10" [first]=first>
