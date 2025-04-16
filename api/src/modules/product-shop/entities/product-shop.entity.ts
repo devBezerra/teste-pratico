@@ -1,6 +1,6 @@
 import { BaseEntityWithIdAndTimestamps } from 'src/shared/entities/baseEntityWithIdAndTimestamps.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { Product } from './product.entity';
+import { Product } from 'src/modules/products/entities/product.entity';
 import { Shop } from 'src/modules/shops/entities/shop.entity';
 
 @Entity({ name: 'products_shop' })

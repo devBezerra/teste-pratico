@@ -1,4 +1,4 @@
-import { ProductShop } from 'src/modules/products/entities/product-shop.entity';
+import { ProductShop } from 'src/modules/product-shop/entities/product-shop.entity';
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
 

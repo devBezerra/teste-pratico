@@ -1,6 +1,6 @@
+import { ProductShop } from 'src/modules/product-shop/entities/product-shop.entity';
 import { BaseEntityWithIdAndTimestamps } from 'src/shared/entities/baseEntityWithIdAndTimestamps.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
-import { ProductShop } from './product-shop.entity';
 
 @Entity({ name: 'products' })
 export class Product extends BaseEntityWithIdAndTimestamps {
