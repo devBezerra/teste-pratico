@@ -1,29 +1,33 @@
 <tp-header
   [text]="id ? 'Editar Produto' : 'Cadastro de Produto'"
   returnUrl="/produtos"
-  [action]="boundHandleSaveOrUpdate"
-  [actionDisable]="form.invalid"
+  [save]="boundHandleSaveOrUpdate"
+  [saveDisable]="form.invalid"
+  [delete]="boundDelete"
 />
 
-<form [formGroup]="form">
+<p-confirm-dialog />
+
+<section>
+  <form [formGroup]="form">
   <div class="id">
     <label for="id">Código:</label>
     <input pInputText id="id" autocomplete="off" formControlName="id" />
   </div>
   <div class="description">
     <label for="description">Descrição:</label>
-    <input pInputText id="description" autocomplete="off" formControlName="description" />
+    <input pInputText id="description" autocomplete="off" formControlName="description" placeholder="Descrição" />
   </div>
   <div class="cost">
     <label for="cost">Custo:</label>
-    <p-inputnumber mode="decimal" formControlName="cost" [minFractionDigits]="2" [maxFractionDigits]="2" />
+    <p-inputnumber mode="decimal" formControlName="cost" [minFractionDigits]="2" [maxFractionDigits]="2" placeholder="R$00,00"/>
   </div>
 </form>
 
 @if(!!id) {
 <p-table [value]="productsShop" [lazy]="true" [loading]="loading()">
   <ng-template pTemplate="header">
-    <p-button icon="pi pi-plus" [rounded]="true" [outlined]="true" severity="contrast" />
+    <p-button icon="pi pi-plus" [rounded]="true" [outlined]="true" severity="contrast" (click)="openDialog(id)" />
     <tr>
       <th>Loja</th>
       <th>Preço de Venda</th>
@@ -35,12 +39,17 @@
       <td>{{productShop.shop.description}}</td>
       <td>R$ {{productShop.price | decimalComma}}</td>
       <td class="action-buttons">
-        <!-- <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="contrast" -->
-        <!--   [routerLink]="" /> -->
-        <!-- <p-button icon="pi pi-trash" [rounded]="true" [outlined]="true" severity="danger" -->
-        <!--   (click)="deleteProduct(product.id)" /> -->
+        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="contrast" (click)="openEditDialog(productShop.id)"/>
+        <p-button icon="pi pi-trash" [rounded]="true" [outlined]="true" severity="danger"
+          (click)="deleteProductShop(productShop.id)" />
       </td>
     </tr>
   </ng-template>
 </p-table>
+
+  @if(showDialog()) {
+    <tp-product-shop-form [visible]="showDialog()" (closed)="closeDialog()" [productId]="productId()" [id]="productShopId()" />
+  }
 }
+</section>
+

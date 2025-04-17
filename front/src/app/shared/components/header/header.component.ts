@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'tp-header',
-  imports: [ButtonModule, RouterModule],
+  imports: [ButtonModule, RouterModule, TooltipModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -15,22 +16,34 @@ export class HeaderComponent {
   createUrl = input<string>("");
   returnUrl = input<string>("")
   redirectUrl = input<string>("");
-  action = input<(() => void) | undefined>(() => undefined);
-  actionDisable = input<boolean>(false);
+  save = input<(() => void) | undefined>(() => undefined);
+  saveDisable = input<boolean>(false);
+  delete = input<(() => void) | undefined>(() => undefined);
 
-  public redirects: { [key: string]: string } = {
-    "products": "produtos",
-    "shops": "lojas"
+  public redirects: { [key: string]: { route: string, label: string } } = {
+    "products": { route: "produtos", label: "Produtos" },
+    "shops": { route: "lojas", label: "Lojas" }
   }
 
-  execAction(): void {
-    if (this.action) {
-      this.action();
+  execSave(): void {
+    if (this.save()) {
+      this.save()?.();
     }
   }
 
-  get hasAction(): boolean {
-    const fn = this.action();
+  get hasSave(): boolean {
+    const fn = this.save();
+    return fn !== undefined && fn.toString() !== '() => void 0';
+  }
+
+  execDelete(): void {
+    if (this.delete()) {
+      this.delete()?.();
+    }
+  }
+
+  get hasDelete(): boolean {
+    const fn = this.delete();
     return fn !== undefined && fn.toString() !== '() => void 0';
   }
 }

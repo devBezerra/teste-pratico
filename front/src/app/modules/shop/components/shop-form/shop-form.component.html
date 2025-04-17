@@ -6,7 +6,7 @@
       <input pInputText id="description" autocomplete="off" formControlName="description" />
     </div>
     <div class="action-buttons">
-      <p-button label="Salvar" (click)="handleSaveOrUpdate()" [outlined]=true [disabled]="form.invalid" />
+      <p-button label="Salvar" (click)="handleSaveOrUpdate()" [disabled]="form.invalid" />
       <p-button label="Cancelar" (click)="close()" severity=danger [outlined]=true />
     </div>
   </form>

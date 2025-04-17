@@ -1,6 +1,9 @@
 <tp-header createUrl="cadastrar" text="Lista de Produtos" redirectUrl="shops"></tp-header>
+
 <p-confirmdialog />
-<p-table [value]="products" [lazy]="true" [loading]="loading()" [paginator]="true" (onPage)="onPageChange($event)"
+
+<section>
+  <p-table [value]="products" [lazy]="true" [loading]="loading()" [paginator]="true" (onPage)="onPageChange($event)"
   [totalRecords]="totalProducts" [rows]="10" [first]=first>
   <ng-template pTemplate="header">
     <tr>
@@ -24,3 +27,5 @@
     </tr>
   </ng-template>
 </p-table>
+</section>
+

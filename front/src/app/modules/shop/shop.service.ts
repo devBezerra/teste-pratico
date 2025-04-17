@@ -24,6 +24,10 @@ export class ShopService {
     return this.http.get<ShopInterface>(`${this.url}shops/${id}`)
   }
 
+  getAllShops(): Observable<ShopInterface[]> {
+    return this.http.get<ShopInterface[]>(`${this.url}shops`)
+  }
+
   createShop(
     data: ShopInterface,
   ): Observable<{ shop: ShopInterface, message: string }> {

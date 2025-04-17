@@ -6,15 +6,18 @@
     @if(returnUrl()) {
       <p-button icon="pi pi-arrow-left" [rounded]="true" [text]="true" [routerLink]="returnUrl()" severity="contrast" />
     }
-    @if(hasAction) {
-      <p-button icon="pi pi-save" [rounded]="true" [text]="true" severity="contrast" (click)="action()?.()" [disabled]="actionDisable()" />
+    @if(hasSave) {
+      <p-button icon="pi pi-save" [rounded]="true" [text]="true" severity="contrast" (click)="execSave()" [disabled]="saveDisable()" />
+    }
+    @if(hasDelete) {
+      <p-button icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom" [rounded]="true" [text]="true" severity="contrast" (click)="execDelete()" />
     }
   </div>
   <h3>{{text()}}</h3>
     @if(redirectUrl()) {
-      <p-button [label]="redirects[redirectUrl()]"
-      [routerLink]="'/'+redirects[redirectUrl()]" class="link-button"
-      severity=info
-      ></p-button>
+      <p-button [label]="redirects[redirectUrl()].label"
+      [routerLink]="'/'+redirects[redirectUrl()].route" class="link-button"
+      severity="secondary"
+    ></p-button>
     }
 </section>

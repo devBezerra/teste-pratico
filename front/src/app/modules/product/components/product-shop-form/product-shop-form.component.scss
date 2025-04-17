@@ -1,0 +1,18 @@
+.action-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+form {
+  gap: 20px;
+}
+
+.shopId,
+.price {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}

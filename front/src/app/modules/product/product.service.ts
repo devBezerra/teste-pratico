@@ -2,13 +2,14 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProductInterface, ResponsePaginatedProductRoute } from './interfaces/product.interface';
+import { ProductInterface, ProductsShopInterface, ResponsePaginatedProductRoute } from './interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private readonly url = `${environment.apiUrl}products/`;
+  private readonly urlProductsShop = `${environment.apiUrl}product-shop/`
   constructor(
     private http: HttpClient
   ) { }
@@ -41,6 +42,29 @@ export class ProductService {
     id: number
   ): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.url}${id}`);
+  }
+
+  getProductShop(id: number): Observable<ProductsShopInterface> {
+    return this.http.get<ProductsShopInterface>(`${this.urlProductsShop}${id}`)
+  }
+
+  createProductShop(
+    data: ProductsShopInterface,
+  ): Observable<{ productShop: ProductsShopInterface, message: string }> {
+    return this.http.post<{ productShop: ProductsShopInterface, message: string }>(`${this.urlProductsShop}`, data)
+  }
+
+  updateProductShop(
+    data: ProductsShopInterface,
+    id: number
+  ): Observable<{ productShop: ProductsShopInterface, message: string }> {
+    return this.http.patch<{ productShop: ProductsShopInterface, message: string }>(`${this.urlProductsShop}${id}`, data)
+  }
+
+  deleteProductShop(
+    id: number
+  ): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.urlProductsShop}${id}`);
   }
 
   alterPage(page: number): void {
