@@ -18,7 +18,7 @@ export const typeormOptions: DataSourceOptions & SeederOptions = {
   username: configService.get<string>('DB_USER'),
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
-  migrations: [__dirname + '/migrations/*.ts'],
+  migrations: [__dirname + '/migrations/*{.ts,.js}'],
   synchronize: false,
   logging: false,
   entities: [Shop, Product, ProductShop],
