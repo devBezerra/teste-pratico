@@ -24,5 +24,9 @@ export const routes: Routes = [
   {
     path: "produtos/editar/:id",
     component: ProductFormComponent
+  },
+  {
+    path: "**",
+    redirectTo: "produtos"
   }
 ];
